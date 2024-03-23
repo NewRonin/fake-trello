@@ -1,0 +1,12 @@
+.layout {
+  background-color: aquamarine;
+  width: 100dvw;
+  height: 100dvh;
+  padding: 2rem;
+  box-sizing: border-box;
+  
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  overflow-x: scroll;
+}
