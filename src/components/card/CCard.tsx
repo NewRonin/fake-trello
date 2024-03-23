@@ -1,15 +1,42 @@
 import styles from './Card.module.css'
+import iconEdit from '../../assets/edit.svg'
+import { Input } from '../input/CInput';
+import { useState } from 'react';
 
 type Props = {
     title : string;
+    changeTitle : Function,
 }
 
-export function Card(props : Props) {
+export function Card(props: Props) {
+    const [showEditField, setShowEditField] = useState(false);
+
     return (
         <div className={styles.mainContainer}>
-            <div className={styles.title}>
-                { props.title }
-            </div>
+            {!showEditField &&
+                <>
+                <img
+                    className={styles.edit}
+                    src={iconEdit}
+                    onClick={() => setShowEditField(!showEditField)}
+                />
+                <div className={styles.title}>
+                    {props.title}
+                </div>
+                </>
+            }
+            {showEditField &&
+                <>
+                <img
+                    className={styles.edit}
+                    src={iconEdit}
+                    onClick={() => {
+                        setShowEditField(!showEditField)
+                    }}
+                />
+                <Input value={props.title} updateValue={props.changeTitle}/>
+                </>
+            }
         </div>
     )
 }
