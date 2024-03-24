@@ -13,7 +13,8 @@ type Props = {
     cards :  Cards,
     updateColumn : Function,
     deleteColumn : Function,
-    addCard : Function
+    addCard : Function,
+    deleteCard : Function
 }
 
 export function Column(props : Props) {
@@ -27,7 +28,12 @@ export function Column(props : Props) {
                 <img src={imageDelete} onClick={() => props.deleteColumn(props.index)}/>
             </div>
             { props.cards.map( (i, index) => 
-                <Card title={i.card} changeTitle={(value : string) => {props.cards[index].card = value; forceUpdate()}} /> 
+                <Card 
+                    title={i.card} 
+                    column={i.column}
+                    changeTitle={(value : string) => {props.cards[index].card = value; forceUpdate()}} 
+                    deleteCard={props.deleteCard}
+                /> 
             )}
         </div>
     )

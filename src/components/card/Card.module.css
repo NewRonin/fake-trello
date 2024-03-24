@@ -17,7 +17,16 @@
     font-size: 24px;
 }
 
-.edit {
+.leftIcon {
+    position: absolute;
+    top: 24px;
+    right: 40px;
+
+    width: 24px;
+    height: 24px;
+}
+
+.rightIcon {
     position: absolute;
     top: 24px;
     right: 16px;
@@ -25,3 +34,4 @@
     width: 24px;
     height: 24px;
 }
+

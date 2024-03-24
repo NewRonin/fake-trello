@@ -29,6 +29,10 @@ function App() {
     })])
   }
 
+  function deleteCard(card : object) : void{
+    setCards([...cards.filter((i) => JSON.stringify(i) !== JSON.stringify(card))])
+  }
+
   return (
     <div className={styles.layout}>
       {columns.map((i, index) =>
@@ -42,6 +46,7 @@ function App() {
           updateColumn={(value : string) => {columns[index] = value;}}
           deleteColumn={deleteColumn}
           addCard={addCard}
+          deleteCard={deleteCard}
         />)
       }
       <div className={styles.addNew} onClick={() => addColumn('New column')}>
