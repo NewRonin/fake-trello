@@ -1,5 +1,6 @@
 .mainContainer{
-    width: 30%;
+    width: 30vw;
+    min-width: 30vw;
     height: fit-content;
     background-color: cadetblue;
     backdrop-filter: blur(10px);
@@ -14,8 +15,20 @@
     padding: 16px;
 }
 
-.title{
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.title>input{
     font-size: 32px;
     width: 100%;
     color: white;
+}
+
+.title>img{
+    width: 24px;
+    height: 24px;
 }

@@ -4,13 +4,49 @@ import styles from './App.module.css'
 import { useState } from 'react'
 
 function App() {
-//  const [count, setCount] = useState(0)
-    const [cards] = useState(["123", "456"])
-    const [columns] = useState(["TODO", "In progress", "Done"])
+  //  const [count, setCount] = useState(0)
+  const [cards, setCards] = useState([{ column: 0, card: "123" }, { column: 1, card: "456" }])
+  const [columns, setColumns] = useState(["TODO", "In progress", "Done"])
+
+  function addColumn(name : string) : void{
+    setColumns([... columns, name])
+  }
+
+  function addCard(name: string, index: number) : void{
+    setCards([...cards, {column : index, card : name}])
+  }
+
+  function deleteColumn(index: number): void {
+    setColumns( [...columns.filter((i, _index) => index != _index)])
+    setCards([...cards.flatMap((i) => { 
+      if (i.column > index){
+        i.column--
+      }
+      else if (i.column === index){
+        return []
+      }
+      return i
+    })])
+  }
 
   return (
     <div className={styles.layout}>
-      { columns.map( (i) => <Column title={i} cards={cards}/> ) }
+      {columns.map((i, index) =>
+        <Column 
+          key={i}
+          title={i} 
+          index={index}
+          cards={
+            cards.filter((j) => j.column === index)
+          } 
+          updateColumn={(value : string) => {columns[index] = value;}}
+          deleteColumn={deleteColumn}
+          addCard={addCard}
+        />)
+      }
+      <div className={styles.addNew} onClick={() => addColumn('New column')}>
+        +
+      </div>
     </div>
   )
 }

@@ -1,10 +1,19 @@
 import { useReducer } from 'react';
 import { Card } from '../card/CCard'
+import { Input } from '../input/CInput';
 import styles from './Column.module.css'
+import Cards from '../../types/cards'
+
+import imageDelete from '../../assets/delete.svg'
+import imageAdd from '../../assets/plus.svg'
 
 type Props = {
     title : string,
-    cards : string[]
+    index : number,
+    cards :  Cards,
+    updateColumn : Function,
+    deleteColumn : Function,
+    addCard : Function
 }
 
 export function Column(props : Props) {
@@ -13,10 +22,12 @@ export function Column(props : Props) {
     return (
         <div className={styles.mainContainer}>
             <div className={styles.title}>
-                { props.title }
+                <Input value={ props.title } updateValue={props.updateColumn} ></Input>
+                <img src={imageAdd} onClick={() => props.addCard('New Card',props.index)} />
+                <img src={imageDelete} onClick={() => props.deleteColumn(props.index)}/>
             </div>
             { props.cards.map( (i, index) => 
-                <Card title={i} changeTitle={(value : string) => {props.cards[index] = value; forceUpdate()}} /> 
+                <Card title={i.card} changeTitle={(value : string) => {props.cards[index].card = value; forceUpdate()}} /> 
             )}
         </div>
     )
