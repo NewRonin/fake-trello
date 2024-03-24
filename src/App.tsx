@@ -29,6 +29,16 @@ function App() {
     })])
   }
 
+  function changeColumn(index : number, newColumn : number) : void{
+    console.log('???')
+    setCards([...cards.map((i, _index) => {
+      if (_index === index){
+        i.column =  newColumn
+      }
+      return i
+    })])
+  }
+
   function deleteCard(card : object) : void{
     setCards([...cards.filter((i) => JSON.stringify(i) !== JSON.stringify(card))])
   }
@@ -47,6 +57,7 @@ function App() {
           deleteColumn={deleteColumn}
           addCard={addCard}
           deleteCard={deleteCard}
+          changeColumn={changeColumn}
         />)
       }
       <div className={styles.addNew} onClick={() => addColumn('New column')}>

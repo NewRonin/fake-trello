@@ -14,14 +14,22 @@ type Props = {
     updateColumn : Function,
     deleteColumn : Function,
     addCard : Function,
-    deleteCard : Function
+    deleteCard : Function,
+    changeColumn: Function
 }
 
 export function Column(props : Props) {
     const [, forceUpdate] = useReducer(x => x + 1, 0);
+
+    function onDrop(evt : DragEvent){
+        const itemId = evt.dataTransfer?.getData('id')
+        if (itemId){
+            props.changeColumn(Number(itemId), props.index)
+        }
+    }
     
     return (
-        <div className={styles.mainContainer}>
+        <div className={styles.mainContainer} draggable={true} onDrop={(evt) => onDrop(evt)} onDragOver={(event => {event.stopPropagation(); event.preventDefault()})}>
             <div className={styles.title}>
                 <Input value={ props.title } updateValue={props.updateColumn} ></Input>
                 <img src={imageAdd} onClick={() => props.addCard('New Card',props.index)} />

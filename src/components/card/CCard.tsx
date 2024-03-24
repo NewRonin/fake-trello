@@ -15,8 +15,19 @@ type Props = {
 export function Card(props: Props) {
     const [showEditField, setShowEditField] = useState(false);
 
+    function onDragStart(evt : DragEvent) {
+        const itemId = props.column
+
+        if (itemId > -1) {
+            evt.dataTransfer!.setData('id', itemId.toString())
+            evt.dataTransfer!.effectAllowed = 'move'
+            evt.dataTransfer!.dropEffect = 'move'
+        }
+
+    }
+
     return (
-        <div className={styles.mainContainer}>
+        <div className={styles.mainContainer} draggable={true} onDragStart={(evt) => onDragStart(evt)}>
             {!showEditField &&
                 <>
                     <img
